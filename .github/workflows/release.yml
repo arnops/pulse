@@ -122,6 +122,8 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -130,15 +132,30 @@ jobs:
         with:
           path: artifacts
 
+      - name: Debug - List artifacts
+        run: |
+          echo "=== Artifacts directory structure ==="
+          ls -laR artifacts/
+          echo "=== Finding archives ==="
+          find artifacts -type f \( -name "*.tar.gz" -o -name "*.zip" \)
+
       - name: Flatten artifacts
         run: |
           mkdir -p release
           find artifacts -type f \( -name "*.tar.gz" -o -name "*.zip" \) -exec mv {} release/ \;
+          echo "=== Release directory contents ==="
+          ls -la release/
 
       - name: Generate checksums
         run: |
           cd release
-          sha256sum * > SHA256SUMS
+          if [ -n "$(ls -A)" ]; then
+            sha256sum * > SHA256SUMS
+            cat SHA256SUMS
+          else
+            echo "Error: No files found in release directory"
+            exit 1
+          fi
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
