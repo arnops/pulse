@@ -1,0 +1,27 @@
+# Pulse Configuration Example
+# Copy this file to pulse.config.toml and customize for your needs
+
+[[monitors]]
+name = "System Uptime"
+command = "uptime"
+interval = 300  # 5 minutes
+webhook = "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
+
+[[monitors]]
+name = "Disk Usage"
+command = "df -h /"
+interval = 600  # 10 minutes
+webhook = "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
+
+[[monitors]]
+name = "Memory Usage"
+command = "free -h"
+interval = 300  # 5 minutes
+webhook = "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
+
+# Example with ifo (if installed)
+# [[monitors]]
+# name = "NYC Flight Info"
+# command = "ifo --place NYC"
+# interval = 60  # 1 minute
+# webhook = "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"

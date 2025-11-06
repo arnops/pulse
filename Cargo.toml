@@ -1,0 +1,27 @@
+[package]
+name = "pulse"
+version = "0.1.0"
+edition = "2021"
+authors = ["arnops <arno@arnops.dev>"]
+license = "MIT"
+description = "High-performance CLI monitoring tool for tracking command outputs and sending Discord notifications"
+repository = "https://github.com/arnops/pulse"
+keywords = ["cli", "monitoring", "discord", "webhook"]
+categories = ["command-line-utilities"]
+
+[dependencies]
+clap = { version = "4.5", features = ["derive"] }
+tokio = { version = "1.42", features = ["full"] }
+reqwest = { version = "0.12", features = ["json"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+thiserror = "2.0"
+anyhow = "1.0"
+
+[profile.release]
+opt-level = 3          # Maximum optimization
+lto = "fat"            # Link-time optimization across crates
+codegen-units = 1      # Single codegen unit for better optimization
+strip = true           # Strip symbols for smaller binary
+panic = "abort"        # Abort on panic (no unwinding overhead)

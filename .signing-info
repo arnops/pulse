@@ -1,0 +1,38 @@
+# Signed Commits
+
+This project requires signed commits for security and authenticity. We use SSH-based signing (Git 2.34+).
+
+## Setup SSH Signing
+
+Configure Git to sign commits with your SSH key:
+
+```bash
+# Set SSH as the signing format
+git config --global gpg.format ssh
+
+# Set your SSH public key as the signing key
+git config --global user.signingkey ~/.ssh/id_ed25519.pub
+
+# Enable automatic commit signing
+git config --global commit.gpgsign true
+
+# Enable automatic tag signing
+git config --global tag.gpgsign true
+```
+
+## Verify Signed Commits
+
+To verify a commit is signed:
+
+```bash
+git log --show-signature
+```
+
+## Why Signed Commits?
+
+- **Authenticity**: Proves commits are from verified contributors
+- **Integrity**: Ensures commits haven't been tampered with
+- **Security**: Protects against impersonation attacks
+- **Trust**: Builds confidence in the codebase history
+
+All commits in this repository are signed with SSH keys for maximum security.
