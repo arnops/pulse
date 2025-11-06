@@ -62,12 +62,7 @@ impl DiscordClient {
 
     /// Internal method to send the message via HTTP POST
     async fn send(&self, message: &DiscordMessage, webhook_url: &str) -> Result<()> {
-        let response = self
-            .client
-            .post(webhook_url)
-            .json(message)
-            .send()
-            .await?;
+        let response = self.client.post(webhook_url).json(message).send().await?;
 
         if !response.status().is_success() {
             let status = response.status();

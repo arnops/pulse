@@ -8,6 +8,51 @@
 
 A Rust CLI tool for monitoring command outputs and sending notifications to Discord webhooks.
 
+## Installation
+
+### Quick Install (Pre-built Binaries)
+
+Download pre-compiled binaries from the [latest release](https://github.com/arnops/pulse/releases/latest):
+
+**Linux (x86_64):**
+```bash
+wget https://github.com/arnops/pulse/releases/download/v0.1.0/pulse-x86_64-unknown-linux-gnu.tar.gz
+tar xzf pulse-x86_64-unknown-linux-gnu.tar.gz
+sudo mv pulse /usr/local/bin/
+pulse --version
+```
+
+**macOS (Intel):**
+```bash
+curl -L https://github.com/arnops/pulse/releases/download/v0.1.0/pulse-x86_64-apple-darwin.tar.gz -o pulse.tar.gz
+tar xzf pulse.tar.gz
+sudo mv pulse /usr/local/bin/
+pulse --version
+```
+
+**macOS (Apple Silicon):**
+```bash
+curl -L https://github.com/arnops/pulse/releases/download/v0.1.0/pulse-aarch64-apple-darwin.tar.gz -o pulse.tar.gz
+tar xzf pulse.tar.gz
+sudo mv pulse /usr/local/bin/
+pulse --version
+```
+
+**Windows:**
+Download `pulse-x86_64-pc-windows-gnu.zip` from [releases](https://github.com/arnops/pulse/releases/latest), extract, and add to PATH.
+
+### Build from Source
+
+```bash
+# Requires Rust 1.70+
+git clone https://github.com/arnops/pulse.git
+cd pulse
+cargo build --release
+sudo cp target/release/pulse /usr/local/bin/
+```
+
+For detailed installation instructions, platform-specific guides, and troubleshooting, see [INSTALL.md](INSTALL.md).
+
 ## Tech Stack
 
 - **clap** - CLI argument parsing

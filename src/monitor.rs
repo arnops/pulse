@@ -41,7 +41,10 @@ impl Monitor {
             match self.execute_and_check().await {
                 Ok(changed) => {
                     if changed {
-                        println!("📊 [{}] Change detected, notification sent", self.config.name);
+                        println!(
+                            "📊 [{}] Change detected, notification sent",
+                            self.config.name
+                        );
                     }
                 }
                 Err(e) => {
@@ -81,20 +84,16 @@ impl Monitor {
         // Parse command and arguments (simple space-based split)
         let parts: Vec<&str> = self.config.command.split_whitespace().collect();
         if parts.is_empty() {
-            return Err(PulseError::CommandExecution(
-                "Empty command".to_string(),
-            ));
+            return Err(PulseError::CommandExecution("Empty command".to_string()));
         }
 
         let cmd = parts[0];
         let args = &parts[1..];
 
         // Execute command
-        let output = Command::new(cmd)
-            .args(args)
-            .output()
-            .await
-            .map_err(|e| PulseError::CommandExecution(format!("Failed to execute '{}': {}", cmd, e)))?;
+        let output = Command::new(cmd).args(args).output().await.map_err(|e| {
+            PulseError::CommandExecution(format!("Failed to execute '{}': {}", cmd, e))
+        })?;
 
         // Combine stdout and stderr
         let mut result = String::from_utf8_lossy(&output.stdout).to_string();
@@ -133,7 +132,7 @@ mod tests {
         };
 
         let discord_client = Arc::new(DiscordClient::new().unwrap());
-        let mut monitor = Monitor::new(config, discord_client);
+        let monitor = Monitor::new(config, discord_client);
 
         let output = monitor.execute_command().await.unwrap();
         assert!(output.contains("hello"));

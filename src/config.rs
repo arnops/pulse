@@ -72,9 +72,7 @@ mod tests {
 
     #[test]
     fn test_validate_empty_monitors() {
-        let config = Config {
-            monitors: vec![],
-        };
+        let config = Config { monitors: vec![] };
 
         assert!(config.validate().is_err());
     }
